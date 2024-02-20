@@ -36,14 +36,12 @@ async function main() {
   for (const e of utxo) {
     accountVal += e.value;
     requiredUTXOs.push(e);
-    // if (accountVal > amount) break;
   }
 
   const txObj = new bitcoin.Psbt({ network: bitcoin.networks.testnet });
 
   for await (let i of requiredUTXOs) {
     const voutIndex = i.vout;
-    // console.log(i);
     const voutArray = await transactions.getTx({ txid: i.txId });
 
     const scriptPublicKey = voutArray.vout[voutIndex].scriptpubkey;
